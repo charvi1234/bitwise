@@ -1,0 +1,35 @@
+
+/*
+ * Complete the function below.
+ */
+char* encode(char* input) 
+{
+    int isize,a,b,c,d;
+    isize=strlen(input);
+    int osize,i=0,x;
+    int q=isize%3;
+    osize=4*((isize+2)/3);
+    char *result=(char*)malloc(osize*sizeof(char));
+    char chars[]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/0123456789";
+    for(x=0;x<isize;)
+    {
+    a=input[x]>>2;
+    b=((input[x]&3)<<4)|(input[x+1]>>4);
+    c=((input[x+1]&15)<<2)|(input[x+2]>>6);
+    d=input[x+2]&63;
+    result[i++]=chars[a];
+    result[i++]=chars[b];
+    result[i++]=chars[c];
+    result[i++]=chars[d];
+    x=x+3;
+    }
+    result[i]=0;
+    if(q>0)
+    {
+        for(;q<3;q++)
+        {
+        result[--i]='=';
+        }
+    }
+    return result;
+}
